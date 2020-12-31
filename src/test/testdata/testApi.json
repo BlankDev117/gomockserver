@@ -1,0 +1,18 @@
+{
+    "routes": {
+        "/url/subUrl": {
+            "post{id}": {
+                "status": 200,
+                "body": {
+                    "Id": "{{id}}",
+                    "Something": "Oh Ya"
+                }
+            }
+        },
+        "url/*": {
+            "get": {
+                "status": 404
+            }
+        }
+    }
+}
