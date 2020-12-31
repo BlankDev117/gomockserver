@@ -9,8 +9,6 @@ Pull the image, set the port map, and add the volume for the directory where the
     image: blankdev117/gomockserver:0.0.1
     volumes:
     - "./Mocks/apis:/app/data"
-    networks:
-    - network
     ports:
     - "7000:8080"
 
