@@ -69,6 +69,7 @@ func (routeManager routeManager) ProcessAPIRequest(writer http.ResponseWriter, r
 		}
 	}
 
+	writer.Header().Add("content-type", "application/json")
 	writer.WriteHeader(statusCode)
 	_, err := writer.Write([]byte(responseBody))
 
