@@ -6,9 +6,11 @@ A Mock Server capable of creating API endpoints dynamically for use with local t
 # Usage
 Pull the image, set the port map, and add the volume for the directory where the schema configuration files are located. By default, the server will check for configuration files located in the `/app/data` directory. This can be changed via the env variable `CONFIG_PATH`, if desired.
 
-    image: gomockserver
+    image: blankdev117/gomockserver:0.0.1
     volumes:
     - "./Mocks/apis:/app/data"
+    networks:
+    - network
     ports:
     - "7000:8080"
 
