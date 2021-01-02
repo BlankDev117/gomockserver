@@ -73,8 +73,6 @@ In the above example, 3 routes will be generated:
    - `GET`: reeturns a 200 status code with an empty body
    
 ---
-Contibrutions/Feature requests
+## Contibrutions/Feature requests
 
 Feel free to contribute to help enhance the project. Use the issus section for bugs/feature requests. All PRs should be associated to an issue for better tracking. Thank you for your interest in the project!
-
-Tha
