@@ -71,3 +71,10 @@ In the above example, 3 routes will be generated:
  - 2 routes for the url `/{tenantId}/hooray/{id}`:
    - `POST`: returns 201 status code with a body that will have the `tenantId` and `id` fields replaced by the respective url parameters
    - `GET`: reeturns a 200 status code with an empty body
+   
+---
+Contibrutions/Feature requests
+
+Feel free to contribute to help enhance the project. Use the issus section for bugs/feature requests. All PRs should be associated to an issue for better tracking. Thank you for your interest in the project!
+
+Tha
