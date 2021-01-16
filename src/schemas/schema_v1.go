@@ -20,6 +20,7 @@ const supportedSchemaVersion = "v1"
 const routesKey = "routes"
 const statusCodeKey = "statusCode"
 const bodyKey = "body"
+const headerKey = "headers"
 
 // #endregion
 
@@ -134,7 +135,17 @@ func createServerResponse(responseBody map[string]interface{}) (io.Response, err
 		body = responseBody[bodyKey].(map[string]interface{})
 	}
 
-	return io.NewResponse(statusCode, body), nil
+	headers := map[string]string{}
+	if responseBody[headerKey] == nil {
+		headers = nil
+	} else {
+		genericHeaders := responseBody[headerKey].(map[string]interface{})
+		for key, value := range genericHeaders {
+			headers[key] = value.(string)
+		}
+	}
+
+	return io.NewResponse(statusCode, body, headers), nil
 }
 
 // #endregion

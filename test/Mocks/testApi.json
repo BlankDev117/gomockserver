@@ -1,0 +1,23 @@
+{
+    "routes": {
+        "/test/*": {
+            "get": {
+                "statusCode": 200,
+                "body": {
+                    "Success": "Amazing!"
+                },
+                "headers": {
+                    "x-total-count": "1"
+                }
+            }
+        },
+        "/helloworld/*": {
+            "get": {
+                "statusCode": 200,
+                "body": {
+                    "Success": "Amazing!"
+                }
+            }
+        }
+    }
+}

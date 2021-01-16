@@ -11,6 +11,9 @@ func ConvertBytesToMap(byteBuffer []byte) (map[string]interface{}, error) {
 	if byteBuffer == nil {
 		return nil, errors.New("byte[] can not be nil")
 	}
+	if len(byteBuffer) == 0 {
+		return nil, nil
+	}
 
 	objMap := make(map[string]interface{})
 	err := json.Unmarshal(byteBuffer, &objMap)

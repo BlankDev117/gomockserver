@@ -10,6 +10,7 @@ import (
 type Response struct {
 	StatusCode int
 	Body       map[string]interface{}
+	Headers    map[string]string
 }
 
 // #region Constructors
@@ -20,13 +21,31 @@ func DefaultResponse() Response {
 }
 
 // NewResponse creates a response with the specified values
-func NewResponse(statusCode int, body map[string]interface{}) Response {
-	return Response{statusCode, body}
+func NewResponse(statusCode int, body map[string]interface{}, headers map[string]string) Response {
+	headers = formatHeaders(headers)
+	return Response{statusCode, body, headers}
 }
 
 // #endregion
 
 // #region Helpers
+
+func formatHeaders(headers map[string]string) map[string]string {
+	formattedHeaders := map[string]string{}
+
+	if formattedHeaders != nil {
+		for key := range headers {
+			headerKey := strings.ToLower(key)
+			formattedHeaders[headerKey] = headers[key]
+		}
+	}
+
+	if _, containsKey := formattedHeaders["content-type"]; !containsKey {
+		formattedHeaders["content-type"] = "application/json"
+	}
+
+	return formattedHeaders
+}
 
 // GetJSONResponse Returns the string json for the response object with the provided url params substituted
 func GetJSONResponse(response Response, urlParams map[string]string) (string, error) {

@@ -1,0 +1,12 @@
+version: '3.4'
+
+services:
+  gomockserver:
+    image: gomockserver
+    build:
+      context: ../src
+      dockerfile: Dockerfile
+    volumes:
+    - "./Mocks:/app/data"
+    ports:
+    - "7000:8080"
