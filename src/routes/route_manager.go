@@ -54,6 +54,9 @@ func (routeManager routeManager) ProcessAPIRequest(writer http.ResponseWriter, r
 
 	statusCode := 404
 	responseBody := "{\"Error\": \"No route was found that matched the request.\"}"
+	headers := map[string]string{
+		"content-type": "application/json",
+	}
 
 	if matchType != NoMatch {
 		serverRequest, err := io.NewRequest(request, matchedRoute.Route.RouteParts)
@@ -62,14 +65,16 @@ func (routeManager routeManager) ProcessAPIRequest(writer http.ResponseWriter, r
 			panic(err)
 		}
 
-		statusCode, responseBody, err = getResponse(matchedRoute, serverRequest.PathParameters)
+		statusCode, responseBody, headers, err = getResponse(matchedRoute, serverRequest.PathParameters)
 
 		if err != nil {
 			panic(err)
 		}
 	}
 
-	writer.Header().Add("content-type", "application/json")
+	for headerKey, headerValue := range headers {
+		writer.Header().Add(headerKey, headerValue)
+	}
 	writer.WriteHeader(statusCode)
 	_, err := writer.Write([]byte(responseBody))
 
@@ -78,19 +83,23 @@ func (routeManager routeManager) ProcessAPIRequest(writer http.ResponseWriter, r
 	}
 }
 
-func getResponse(route RouteMap, pathParameters map[string]string) (int, string, error) {
+func getResponse(route RouteMap, pathParameters map[string]string) (int, string, map[string]string, error) {
 	if route.Route.RawPath == "" {
-		return 500, "Error: No route was found for the given request", nil
+		return 500, "Error: No route was found for the given request", map[string]string{
+			"content-type": "application/json",
+		}, nil
 	}
 
 	logPathParams(pathParameters)
 	jsonResponse, err := io.GetJSONResponse(route.Response, pathParameters)
 
 	if err != nil {
-		return 500, "", err
+		return 500, "Error parsing response body", map[string]string{
+			"content-type": "application/json",
+		}, err
 	}
 
-	return route.Response.StatusCode, jsonResponse, nil
+	return route.Response.StatusCode, jsonResponse, route.Response.Headers, nil
 }
 
 func logPathParams(m map[string]string) {
