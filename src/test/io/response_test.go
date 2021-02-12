@@ -13,7 +13,7 @@ func TestGetJSONResponseNilBodyReturnsEmptyString(t *testing.T) {
 	// Arrange
 	assert := assert.New(t)
 
-	response := io.NewResponse(200, nil)
+	response := io.NewResponse(200, nil, nil)
 
 	// Act
 	result, err := io.GetJSONResponse(response, nil)
@@ -27,7 +27,7 @@ func TestGetJSONResponseEmptyBodyReturnsEmptyString(t *testing.T) {
 	// Arrange
 	assert := assert.New(t)
 
-	response := io.NewResponse(200, map[string]interface{}{})
+	response := io.NewResponse(200, map[string]interface{}{}, nil)
 
 	// Act
 	result, err := io.GetJSONResponse(response, nil)
@@ -45,7 +45,7 @@ func TestGetJSONResponseNilUrlParamsReturnsBodyAsJSONString(t *testing.T) {
 		"Test": "Hi",
 		"Oh":   10,
 	}
-	response := io.NewResponse(200, jsonBody)
+	response := io.NewResponse(200, jsonBody, nil)
 
 	// Act
 	result, err := io.GetJSONResponse(response, nil)
@@ -63,7 +63,7 @@ func TestGetJSONResponseEmptyUrlParamsReturnsBodyAsJSONString(t *testing.T) {
 		"Test": "Hi",
 		"Oh":   10,
 	}
-	response := io.NewResponse(200, jsonBody)
+	response := io.NewResponse(200, jsonBody, nil)
 
 	urlParams := map[string]string{}
 
@@ -86,7 +86,7 @@ func TestGetJSONResponseReplacesDesignatedUrlParamsInJSONString(t *testing.T) {
 		"Color":     "{{color}}",
 		"Secondary": "{color}",
 	}
-	response := io.NewResponse(200, jsonBody)
+	response := io.NewResponse(200, jsonBody, nil)
 
 	urlParams := map[string]string{
 		"{color}": "red",

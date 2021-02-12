@@ -71,7 +71,21 @@ In the above example, 3 routes will be generated:
  - 2 routes for the url `/{tenantId}/hooray/{id}`:
    - `POST`: returns 201 status code with a body that will have the `tenantId` and `id` fields replaced by the respective url parameters
    - `GET`: reeturns a 200 status code with an empty body
-   
+
+---
+## Local Testing With Docker
+1. Build the image locally
+From within the src directory, you can run the following command:
+`docker build -t gomockserver:dev .`
+
+2. Use the image in a docker-compose file:
+`image: gomockserver:dev`
+
+---
+## Docker Image
+The related docker image can be found here:
+https://hub.docker.com/r/blankdev117/gomockserver
+
 ---
 ## Contibrutions/Feature requests
 

@@ -33,7 +33,7 @@ func NewResponse(statusCode int, body map[string]interface{}, headers map[string
 func formatHeaders(headers map[string]string) map[string]string {
 	formattedHeaders := map[string]string{}
 
-	if formattedHeaders != nil {
+	if headers != nil {
 		for key := range headers {
 			headerKey := strings.ToLower(key)
 			formattedHeaders[headerKey] = headers[key]

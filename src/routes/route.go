@@ -36,6 +36,10 @@ func (route Route) DoesPathMatch(path string) RouteMatch {
 	pathParts := strings.Split(path, "/")
 
 	for index, part := range pathParts {
+		if index >= len(route.RouteParts) {
+			return NoMatch
+		}
+
 		routePart := route.RouteParts[index]
 		if routePart == "*" {
 			return PartialMatch

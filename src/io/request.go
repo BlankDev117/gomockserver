@@ -1,6 +1,7 @@
 package io
 
 import (
+	"bytes"
 	"errors"
 	"io/ioutil"
 	"net/http"
@@ -47,6 +48,9 @@ func NewRequest(httpRequest *http.Request, routeParts []string) (request, error)
 		return DefaultRequest(), err
 	}
 
+	// Remove byte order mark
+	// Reference: https://stackoverflow.com/questions/31398044/got-error-invalid-character-%C3%AF-looking-for-beginning-of-value-from-json-unmar
+	bodyBuffer = bytes.TrimPrefix(bodyBuffer, []byte("\xef\xbb\xbf"))
 	body, err := utils.ConvertBytesToMap(bodyBuffer)
 
 	if err != nil {
